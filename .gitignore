@@ -1,4 +1,10 @@
-.env
-.venv
+# Byte-compiled / optimized / DLL files
 __pycache__
+
+# Virtual Env
+.venv
+
+# DotEnv config
+.env
+
 /extras
