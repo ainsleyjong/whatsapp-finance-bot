@@ -1,14 +1,17 @@
+from dotenv import load_dotenv
+from typing import Any
 import requests
 import time
 import datetime as dt
-from typing import Any
-from config import (
-    BASE_URL,
-    API_KEY,
-    DEFAULT_HOURS,
-    REQUEST_TIMEOUT,
-    SLEEP_BETWEEN_PAGES,
-)
+import os
+
+load_dotenv()
+BASE_URL = "https://api.marketaux.com/v1/news/all"
+API_KEY = os.getenv("MARKETAUX_KEY")
+DEFAULT_HOURS = 24
+REQUEST_TIMEOUT = 20
+SLEEP_BETWEEN_PAGES = 0.5
+MAX_PAGES = 3
 
 #---------- Helper Functions ----------#
 def _utc_iso(hours_back: int) -> str:
