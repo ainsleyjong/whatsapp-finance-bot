@@ -1,5 +1,6 @@
 from flask import current_app, jsonify
-from app.services.market_news import extract_data, build_article_summary
+from app.services.marketaux_service import extract_data, format_articles_for_summary
+from app.services.openai_service import summarise_articles_text
 import json
 import logging
 import requests
@@ -68,10 +69,12 @@ def generate_response(message_body):
     text = message_body.strip()
 
     if text.lower().startswith("symbols"):
-    # Strip off "symbols" and get the rest
         rest = text[len("symbols"):].strip()
 
-        # Remove leading separators like =, :, or space
+        #* Allow formats like:
+        #   symbols=META
+        #   symbols META
+        #   symbols: META,TSLA
         while rest and rest[0] in ["=", ":", " "]:
             rest = rest[1:].strip()
 
@@ -82,7 +85,7 @@ def generate_response(message_body):
                 "`symbols=META` or `symbols=TSLA,NVDA`"
             )
 
-        # ✅ Convert input to comma-separated uppercase (e.g. "meta tsla" → "META,TSLA")
+        # Ensure symbols are comma-separated for Marketaux query
         symbols = rest.upper().replace(" ", ",")
 
         try:
@@ -92,9 +95,11 @@ def generate_response(message_body):
             return "⚠️ I couldn't fetch market news right now. Please try again later."
 
         if not articles:
-            return f"😕 No recent news found for *{symbols}* in the recent period."
+            return f"No recent news found for symbols=*{symbols}*."
 
-        return build_article_summary(articles, header=f"📈 Latest news for *{symbols}*")
+        raw_text = format_articles_for_summary(articles, header=f"📈 Latest news for *{symbols}*")
+        summary = summarise_articles_text(raw_text=raw_text)
+        return summary
     else:
         return ("⚠️ Command unavailable.\n\n"
             "Try using *symbols <your text>* — for example:\n"

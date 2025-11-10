@@ -92,7 +92,7 @@ def print_articles(articles: list[dict], header: str):
                 print(f"                 {s["description"]}")
                 print(f"                 {s["url"]}")
 
-def build_article_summary(articles: list[dict[str, Any]], header: str) -> str:
+def format_articles_for_summary(articles: list[dict[str, Any]], header: str) -> str:
     """Create a text summary of a list of articles."""
     lines: list[str] = [header, _hr()]
 
