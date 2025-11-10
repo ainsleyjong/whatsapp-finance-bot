@@ -27,7 +27,6 @@ def create_app():
         except Exception as e:
             logging.info(f"Failed to send startup message: {e}")
     
-    #TODO: Start background scheduler
     start_scheduler(app)
     
     return app

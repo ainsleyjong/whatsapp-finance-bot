@@ -14,10 +14,11 @@ SLEEP_BETWEEN_PAGES = 0.5
 MAX_PAGES = 3
 
 #---------- Helper Functions ----------#
+
 def _utc_iso(hours_back: int) -> str:
     return (dt.datetime.now() - dt.timedelta(hours=hours_back)).replace(microsecond=0).isoformat()
 
-def _hr(char: str = "-", width: int = 50) -> str: # Horizontal Rule
+def _hr(char: str = "-", width: int = 35) -> str: # Horizontal Rule
     return char * width
 
 def _fetch_page(params: dict[str, Any]) -> dict[str, Any]:
@@ -76,6 +77,7 @@ def extract_data(pages: int,
 
     return articles
 
+#! To remove, for printing purposes
 def print_articles(articles: list[dict], header: str):
     print(f"\n{header}")
     print(_hr())
@@ -90,5 +92,19 @@ def print_articles(articles: list[dict], header: str):
                 print(f"                 {s["description"]}")
                 print(f"                 {s["url"]}")
 
+def format_articles_for_summary(articles: list[dict[str, Any]], header: str) -> str:
+    """Create a text summary of a list of articles."""
+    lines: list[str] = [header, _hr()]
 
-                
+    for i, article in enumerate(articles, start=1):
+        title = article.get("title", "No Title")
+        desc = article.get("description", "")
+        url = article.get("url", "")
+
+        lines.append(f"\n{i:02d}. {title}")
+        if desc and desc != "No Description":
+            lines.append(f"   {desc}")
+        if url and url != "No URL":
+            lines.append(f"   🔗 {url}")
+
+    return "\n".join(lines)
