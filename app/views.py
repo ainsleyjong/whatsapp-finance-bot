@@ -45,7 +45,7 @@ def handle_message():
 
 @webhook_blueprint.route("/", methods=["GET"])
 def webhook_test():
-    return "Testing 1..2..3!"
+    return "Testing 1..2..3!\n"
 
 @webhook_blueprint.route("/webhook", methods=["GET"]) # type: ignore[arg-type]
 def webhook_get():
