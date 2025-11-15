@@ -11,4 +11,4 @@ if __name__ == "__main__":
     #  port=5000 → default Flask port
     #  When testing webhooks (e.g., WhatsApp), you can expose this server to the internet using ngrok:
     #      ngrok http 5000
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8000)
