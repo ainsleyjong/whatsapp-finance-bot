@@ -77,21 +77,6 @@ def extract_data(pages: int,
 
     return articles
 
-#! To remove, for printing purposes
-def print_articles(articles: list[dict], header: str):
-    print(f"\n{header}")
-    print(_hr())
-    for i, a in enumerate(articles, start = 1):
-        print(f"\n{i:02d}. {a["title"]}")
-        print(f"    {a["description"]}")
-        print(f"    URL: {a["url"]}")
-        
-        if a["similar"]:
-            for j, s in enumerate(a["similar"], start=1):
-                print(f"    ↳ Related {j}: {s["title"]}")
-                print(f"                 {s["description"]}")
-                print(f"                 {s["url"]}")
-
 def format_articles_for_summary(articles: list[dict[str, Any]], header: str) -> str:
     """Create a text summary of a list of articles."""
     lines: list[str] = [header, _hr()]
