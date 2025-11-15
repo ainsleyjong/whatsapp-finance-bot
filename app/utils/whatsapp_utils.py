@@ -91,7 +91,7 @@ def generate_response(message_body):
         try:
             articles = extract_data(pages=1, symbols=symbols)
         except Exception as e:
-            logging.exception("Error fetching Marketaux data")
+            logging.exception(f"Error fetching Marketaux data: {e}")
             return "⚠️ I couldn't fetch market news right now. Please try again later."
 
         if not articles:
