@@ -9,7 +9,7 @@ load_dotenv()
 BASE_URL = "https://api.marketaux.com/v1/news/all"
 API_KEY = os.getenv("MARKETAUX_KEY")
 DEFAULT_HOURS = 24
-REQUEST_TIMEOUT = 20
+REQUEST_TIMEOUT = 60
 SLEEP_BETWEEN_PAGES = 0.5
 MAX_PAGES = 3
 
