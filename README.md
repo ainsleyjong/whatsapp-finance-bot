@@ -14,16 +14,16 @@ Built with Flask, deployed on AWS EC2 using Gunicorn + Nginx, and includes a dai
 - Includes **message template support** for WhatsApp's 24-hour business policy
 
 ## Running the Application Locally
-1. Create virtual environment
+#### 1. Create virtual environment
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
-2. Install dependencies
+#### 2. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-3. Create a `.env` file
+#### 3. Create a `.env` file
 ```ini
 WA_ACCESS_TOKEN=<your_whatsapp_token>
 WA_PHONE_NUMBER_ID=<your_phone_number_id>
@@ -31,11 +31,13 @@ WA_VERIFY_TOKEN=<your_verify_token>
 MARKETAUX_KEY=<your_marketaux_api_key>
 OPENAI_API_KEY=<your_openai_key>
 ```
-4. Run locally
+#### 4. Run locally
 ```bash
 python run.py
 ```
+
 If testing webhooks locally, expose port 5000 using `ngrok`:
+
 ```bash
 ngrok http 5000
 ```
